@@ -1,26 +1,12 @@
 import sys
 
-from PyQt5 import uic
+from basic import hello_pyqt5
 
-import hello_pyqt5
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
+from chapter01.chap01 import MyApp
 
-
-class MyApp(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.ui = uic.loadUi("chapter01/chap01.ui")
-        ok = self.ui.btn_ok.clicked.connect(self.showProp)
-        # self.ui.btn_01.clicked.connect(self.show_msg)
-        self.ui.show()
-
-    def showProp(self):
-        print("red {} green {} blue {}".format(self.ui.spin_red.value(), self.ui.spin_green.value(), self.ui.spin_blue.value()))
-        self.ui.spin_red.setValue(50)
-        self.ui.spin_green.setValue(200)
-        self.ui.spin_blue.setValue(200)
-        print(dir(self.ui.spin_red))
+from chapter02.user_form import UserForm
 
 
 def ui_init1():
@@ -38,6 +24,13 @@ def ui_init2():
     app.exec_()
 
 
+def ui_init3():
+    app = QApplication([])
+    w = UserForm()
+    app.exec_()
+
+
 if __name__ == "__main__":
     # ui_init1()
-    ui_init2()
+    # ui_init2()
+    ui_init3()
