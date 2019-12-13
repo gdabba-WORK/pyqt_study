@@ -4,20 +4,23 @@ from PyQt5.QtWidgets import QWidget, QApplication, QAbstractItemView, QHeaderVie
 from skimage.viewer.qt import Qt
 
 
+def create_table(table = None, data = None):
+    table.setHorizontalHeaderLabels(["부서번호", "부서명", "위치"])
+    # row단위 선택
+    table.setSelectionBehavior(QAbstractItemView.SelectRows)
+    # 테이블 직접 값 입력 불가 설정
+    table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+    # 균일한 간격으로 열 재배치(Qt Designer에 해당 옵션이 존재하지 않아 코드로 직접 설정)
+    table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+    return table
+
+
 class DepartUI(QWidget):
     def __init__(self):
         super().__init__()
         self.ui = uic.loadUi("dept_form.ui")
         self.ui.show()
-
-        self.tbl_widget = self.ui.tbl_widget
-        self.tbl_widget.setHorizontalHeaderLabels(["부서번호", "부서명", "위치"])
-        # row단위 선택
-        self.tbl_widget.setSelectionBehavior(QAbstractItemView.SelectRows)
-        # 테이블 직접 값 입력 불가 설정
-        self.tbl_widget.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # 균일한 간격으로 열 재배치(Qt Designer에 해당 옵션이 존재하지 않아 코드로 직접 설정)
-        self.tbl_widget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tbl_widget = create_table(self.ui.tbl_widget, ["부서번호", "부서명", "위치"])
 
         # signal & slot
         self.ui.btn_add.clicked.connect(self.add_item)
